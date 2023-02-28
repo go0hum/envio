@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8012:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    volumes:
+      - "./data/db/mysql:/var/lib/mysql"
+    environment:
+      MYSQL_DATABASE: mienvio
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+
+    ports:
+      - "33065:3306"
